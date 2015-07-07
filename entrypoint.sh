@@ -29,6 +29,13 @@ fi
 rm -rf /var/lib/bind
 ln -sf ${BIND_DATA_DIR}/lib /var/lib/bind
 
+if [ ! -d ${BIND_DATA_DIR}/cache ]; then
+  mkdir -p ${BIND_DATA_DIR}/cache
+  chown root:${BIND_USER} ${BIND_DATA_DIR}/cache
+fi
+rm -rf /var/cache/bind
+ln -sf ${BIND_DATA_DIR}/cache /var/cache/bind
+
 # create /var/run/named
 mkdir -m 0775 -p /var/run/named
 chown root:${BIND_USER} /var/run/named
